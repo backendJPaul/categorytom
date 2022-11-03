@@ -28,27 +28,53 @@ public class MyResource {
         return "Got it!";
     }
     */
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getVar(@PathParam("id") String id){
-        return id;
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Category> categories()throws Exception{
-        return daoManager.getCategoryDAO().read();
-    }
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Category create(Category category)throws Exception{
+    public Category createCategory(Category category)throws Exception{
         return daoManager.getCategoryDAO().create(category);
     }
 
+    @DELETE
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Category deleteCategory(@PathParam("id") Integer id)throws Exception{
+        Category category = new Category();
+        category.setIdCategory(id);
+        return daoManager.getCategoryDAO().delete(category);
+    }
+
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Category gotoId(@PathParam("id") Integer id)throws Exception{
+        Category category = new Category();
+        category.setIdCategory(id);
+        return daoManager.getCategoryDAO().gotoId(category);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Category> read()throws Exception{
+        return daoManager.getCategoryDAO().read();
+    }
+
+    @GET
+    @Path("/search/{pattern}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Category> search(@PathParam("pattern") String pattern)throws Exception{
+        return daoManager.getCategoryDAO().search(pattern);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Category update(Category category)throws Exception{
+        return daoManager.getCategoryDAO().update(category);
+    }
 
 
 
